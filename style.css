@@ -1,12 +1,20 @@
 /*Global*/
 :root {
-    --dark-blue: color: #363f5f;
+    --dark-blue: #363f5f;
+    --green: #49aa26;
+    --light-green: #3dd705;
+    --red: #e92929;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+    /*15px obs fonte padrão do navegador é de 16px*/
+    font-size: 93.75%; 
 }
 
 body {
@@ -43,18 +51,56 @@ h2 {
 
 /*Links e botões*/
 a{
-    color: #49aa26;
+    color: var(--green);
     text-decoration: none;
 }
 
 a:hover {
-    color: #3dd705;
+    color: var(--light-green);
 }
 
 .button.new {
     display: inline-block;
     margin-bottom: .8rem;
 }
+
+.button.cancel {
+    color: var(--red);
+
+    border: 2px var(--red) solid;
+    border-radius: 0.25rem;
+
+    height: 50px;
+
+    /*Alinhar ao meio da 'caixa' */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.6;
+}
+
+.button.cancel:hover {
+    opacity: 1;
+}
+
+button {
+    width: 100%;
+    height: 50px;
+
+    color: white;
+    background: var(--green);
+    border: none;
+    padding: 0;
+    border-radius: 0.25rem;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--light-green);;
+}
+
 /*Header ====*/
 header {
     background: #2d4a22;
@@ -106,7 +152,7 @@ header {
 }
 
 .card.total {
-    background: #49aa26;
+    background: var(--green);
     color: white;
 }
 
@@ -116,8 +162,15 @@ header {
 }
 
 /*Table*/
+#transaction {
+    /*Consertar nas resoluções mobile tabela transbordando da tela e assim quebrando o header ...*/
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
 #data-table {
     width: 100%;
+    border-spacing:  0 0.5rem;
     color: #969cb3;
 }
 
@@ -175,7 +228,77 @@ td.income {
 }
 
 td.expense {
-    color: #e92929;
+    color: var(--red);
+}
+
+/*Modal ===*/
+.modal-overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+
+    position: fixed;
+    top: 0;
+
+    /*Centralizando Modal*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /*Por padrão não aparecer na tela*/
+    opacity: 0;
+    visibility: hidden;
+}
+
+/*Tornando visível o modal quando tiver o modal-overlay juntamente com a classe active*/
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: #f0f2f5;
+    padding: 2.4rem;
+    max-width: 500px;
+
+    /*Resolução mobile*/
+    width: 80%; 
+}
+
+/*form*/
+#form {
+    max-width: 500px;
+}
+
+#form h2 {
+    margin-top: 0;
+}
+
+input {
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.8rem;
+    width: 100%;
+}
+
+.input-group {
+    margin-top: 0.8rem;
+}
+
+.input-group small {
+    opacity: 0.4;
+}
+
+.input-group.actions {
+    /*Alinhar os botões*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group.actions .button,
+.input-group.actions button {
+    width: 48%;
 }
 
 /*footer ===*/
@@ -186,4 +309,18 @@ footer {
     color: var(--dark-blue);
 
     opacity: 0.6;
+}
+
+/*Responsive ===*/
+@media (min-width: 800px) {
+    html {
+        font-size: 87.5%; /* (16x87.5) / 100 = 14px*/
+    }
+
+    /* Altera o modo como é exibido tanto na vertical quanto na horizontal*/
+    #balance {
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem; /* espaço entre as colunas*/
+    }
 }
